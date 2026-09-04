@@ -1,0 +1,71 @@
+create table accounts
+(
+accno int primary key,
+accnm varchar(50),
+acctype varchar(15) not null,
+balance float check (balance>=500)
+);
+
+insert into accounts values(1001,'sharayu','saving',42570.00);
+insert into accounts values(1002,'praffull','fixed',50000.00);
+
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1003, 'Erling Haaland', 'saving', 185000);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1004, 'Mohamed Salah', 'current', 142500);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1005, 'Bukayo Saka', 'fixed', 98750);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1006, 'Kevin De Bruyne', 'ppf', 205000);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1007, 'Cole Palmer', 'saving', 67500);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1008, 'Declan Rice', 'current', 132000);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1009, 'Martin Odegaard', 'fixed', 89250);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1010, 'Virgil van Dijk', 'ppf', 176000);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1011, 'Trent Alexander-Arnold', 'saving', 54250);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1012, 'Rodri', 'current', 199000);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1013, 'Phil Foden', 'fixed', 121750);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1014, 'Bruno Fernandes', 'ppf', 88500);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1015, 'Alexander Isak', 'saving', 156250);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1016, 'William Saliba', 'current', 63000);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1017, 'Marcus Rashford', 'fixed', 108500);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1018, 'Ollie Watkins', 'ppf', 143250);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1019, 'Nicolas Jackson', 'saving', 72500);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1020, 'James Maddison', 'current', 96750);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1021, 'Son Heung-min', 'fixed', 179000);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1022, 'Bernardo Silva', 'ppf', 61250);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1023, 'Ruben Dias', 'saving', 134500);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1024, 'Ederson', 'current', 92000);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1025, 'Alisson Becker', 'fixed', 168750);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1026, 'Gabriel Magalhaes', 'ppf', 55500);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1027, 'Dominic Solanke', 'saving', 111250);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1028, 'Morgan Rogers', 'current', 79000);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1029, 'Cody Gakpo', 'fixed', 148500);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1030, 'Bryan Mbeumo', 'ppf', 86250);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1031, 'Yoane Wissa', 'saving', 191500);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1032, 'Anthony Gordon', 'current', 58750);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1033, 'Kaoru Mitoma', 'fixed', 103250);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1034, 'Jarrod Bowen', 'ppf', 127500);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1035, 'Chris Wood', 'saving', 74250);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1036, 'Moises Caicedo', 'current', 161000);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1037, 'Levi Colwill', 'fixed', 49500);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1038, 'Enzo Fernandez', 'ppf', 118750);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1039, 'Luis Diaz', 'saving', 152250);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1040, 'Diogo Jota', 'current', 82500);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1041, 'Nick Pope', 'fixed', 66000);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1042, 'Jordan Pickford', 'ppf', 137500);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1043, 'Alex Iwobi', 'saving', 94250);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1044, 'Amad Diallo', 'current', 71500);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1045, 'Joao Pedro', 'fixed', 183250);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1046, 'Ismaila Sarr', 'ppf', 59500);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1047, 'Matheus Cunha', 'saving', 125750);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1048, 'Igor Thiago', 'current', 47500);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1049, 'Antoine Semenyo', 'fixed', 165500);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1050, 'Yankuba Minteh', 'ppf', 101250);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1051, 'Michael Olise', 'saving', 158750);
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1052, 'Callum Wilson', 'current', 45500);
+
+
+select * from accounts;
+select accnm from accounts;
+select accnm,balance from accounts;
+select * from accounts where acctype='saving';
+select * from accounts where acctype='fixed' and balance<50000;
+select * from accounts where acctype='ppf' or balance>100000;
+select * from accounts where balance between 50000 and 75000;
+select * from accounts order by accnm;
