@@ -61,6 +61,9 @@ INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1051, 'Michael Oli
 INSERT INTO accounts (accno, accnm, acctype, balance) VALUES (1052, 'Callum Wilson', 'current', 45500);
 
 
+insert into accounts(accno,acctype,balance) values(1053,'saving',25000);
+update accounts set accnm='Joe Root' where accno=1053;
+
 select * from accounts;
 select accnm from accounts;
 select accnm,balance from accounts;
@@ -69,3 +72,22 @@ select * from accounts where acctype='fixed' and balance<50000;
 select * from accounts where acctype='ppf' or balance>100000;
 select * from accounts where balance between 50000 and 75000;
 select * from accounts order by accnm;
+select * from accounts order by balance DESC;
+select * from accounts order by acctype ASC, balance DESC;
+
+select * from accounts where accnm like 'S%';
+select * from accounts where accnm like 'Br%';
+select * from accounts where accnm like '__a%';
+select * from accounts where accnm like '%i';
+
+select Distinct acctype from accounts;
+select * from accounts where not acctype='saving';
+select * from accounts where acctype != 'saving';
+
+select * from accounts where accno in(1001,1053,1002,1010);
+select * from accounts where accnm IS NULL;
+
+select * from accounts limit 5;  -> MySQL
+select * from accounts FETCH FIRST 5 ROWS ONLY; -> Oracle
+
+select accnm,balance,balance*3/100 as Interest from accounts;
