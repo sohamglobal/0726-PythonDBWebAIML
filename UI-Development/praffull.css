@@ -1,0 +1,18 @@
+h1
+{
+    color:rgb(21, 88, 91);
+    font-family: tahoma;
+    text-align: center;
+}
+
+p
+{
+    margin: 20px;
+    font-family: verdana;
+    color:rgb(75, 14, 132)
+}
+
+body
+{
+    background-color: rgb(211, 207, 201);
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>register</title>
+</head>
+<body>
+    <h1>User Registration Form</h1>
+    <hr>
+    <form method="post" action="register.py">
+        UserID <input type="text" name="uid">
+        <br>
+        Password <input type="password" name="psw">
+        <br>
+        Name <input type="text" name="unm">
+        <br>
+        Gender 
+        <input type="radio" name="gen" value="female"> Female
+        <input type="radio" name="gen" value="male"> Male
+        <br>
+        Occupation 
+        <select name="occ">
+            <option value="housewife">Housewife</option>
+            <option value="employed">Employed</option>
+            <option value="self">Self-Employed</option>
+        </select>
+        <br>
+        <input type="submit" value="Register">
+
+    </form>
+</body>
+</html>
