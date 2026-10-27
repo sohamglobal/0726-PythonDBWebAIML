@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Open a new account</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1b1340; --violet:#6c4cf5; --coral:#ff6b57; --gold:#ffc23c;
+    --mint:#12b886; --sky:#2bb3f3; --paper:#f6f4ff; --line:#ddd7f5; --muted:#6b6590;
+    --c1:#6c4cf5; --c2:#ff6b57;
+  }
+  *{box-sizing:border-box;margin:0}
+  html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+  body{
+    font-family:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;
+    color:var(--ink); background:var(--paper); min-height:100vh;
+    background-image:
+      radial-gradient(circle at 8% 4%, rgba(255,194,60,.35) 0, transparent 28%),
+      radial-gradient(circle at 96% 12%, rgba(43,179,243,.28) 0, transparent 30%),
+      radial-gradient(circle at 50% 100%, rgba(255,107,87,.22) 0, transparent 35%);
+    padding:20px 16px 40px;
+  }
+  .wrap{max-width:980px;margin:0 auto;display:grid;gap:28px;grid-template-columns:1fr}
+  h1{font-family:'Bricolage Grotesque',Georgia,sans-serif;font-weight:800;font-size:clamp(2rem,6vw,3.2rem);line-height:1.02;letter-spacing:-.02em}
+  .intro p{margin-top:10px;color:var(--muted);max-width:44ch;line-height:1.5}
+
+  /* Live account card */
+  .card{
+    position:relative; overflow:hidden; color:#fff; border-radius:24px; padding:24px;
+    min-height:210px; display:flex; flex-direction:column; justify-content:space-between;
+    background:linear-gradient(135deg,var(--c1),var(--c2));
+    box-shadow:0 24px 50px -18px var(--c1);
+    transition:background .4s;
+  }
+  .card::before,.card::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.16)}
+  .card::before{width:220px;height:220px;right:-60px;top:-70px}
+  .card::after{width:140px;height:140px;right:50px;bottom:-70px;background:rgba(255,255,255,.12)}
+  .card > *{position:relative;z-index:1}
+  .card .top{display:flex;justify-content:space-between;align-items:center;font-weight:600}
+  .chip{background:rgba(255,255,255,.25);padding:5px 12px;border-radius:99px;font-size:.85rem}
+  .card .num{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:clamp(1.5rem,6vw,2rem);letter-spacing:.06em;word-break:break-all}
+  .card .bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+  .card small{display:block;opacity:.8;font-size:.75rem;margin-bottom:2px}
+  .card .nm{font-weight:600;font-size:1.05rem}
+  .card .bal{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.5rem;text-align:right}
+
+  /* Form */
+  form{background:#fff;border-radius:24px;padding:24px;box-shadow:0 18px 40px -22px rgba(27,19,64,.45);border:1px solid var(--line)}
+  .field{margin-bottom:18px}
+  label,.lbl{display:block;font-weight:600;font-size:.92rem;margin-bottom:7px}
+  input[type=text],input[type=number]{
+    width:100%; font:inherit; font-size:1rem; padding:14px 16px; color:var(--ink);
+    background:var(--paper); border:2px solid transparent; border-radius:14px; outline:none;
+    transition:border-color .2s, background .2s;
+  }
+  input:focus{border-color:var(--violet);background:#fff}
+  input:focus-visible{box-shadow:0 0 0 4px rgba(108,76,245,.18)}
+  .hint{font-size:.8rem;color:var(--muted);margin-top:5px}
+
+  .types{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .types input{position:absolute;opacity:0;pointer-events:none}
+  .types label{
+    margin:0;text-align:center;padding:13px 8px;border-radius:14px;cursor:pointer;
+    background:var(--paper);border:2px solid transparent;font-weight:600;transition:.2s;
+  }
+  .types input:checked + label{color:#fff;border-color:transparent;background:linear-gradient(135deg,var(--c1),var(--c2))}
+  .types input:focus-visible + label{box-shadow:0 0 0 4px rgba(108,76,245,.3)}
+
+  button{
+    width:100%; font:inherit; font-weight:700; font-size:1.05rem; color:#fff; cursor:pointer;
+    padding:16px; border:0; border-radius:16px; margin-top:4px;
+    background:linear-gradient(135deg,var(--violet),var(--coral));
+    box-shadow:0 12px 24px -10px var(--violet); transition:transform .15s, opacity .2s;
+  }
+  button:hover{transform:translateY(-2px)}
+  button:active{transform:translateY(0)}
+  button:disabled{opacity:.6;cursor:wait}
+  button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+  /* Response banner */
+  .result{display:none;margin-top:20px;border-radius:18px;padding:18px;gap:14px;align-items:center;color:#fff}
+  .result.show{display:flex;animation:pop .45s cubic-bezier(.2,1.4,.4,1)}
+  .result.ok{background:linear-gradient(135deg,#0ca678,#38d9a9);box-shadow:0 14px 28px -12px var(--mint)}
+  .result.fail{background:linear-gradient(135deg,#e8384f,var(--coral));box-shadow:0 14px 28px -12px #e8384f;animation-name:shake}
+  .result .ico{flex:none;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.25);display:grid;place-items:center;font-size:1.5rem;font-weight:800}
+  .result b{display:block;font-family:'Bricolage Grotesque',sans-serif;font-size:1.2rem}
+  .result span{font-size:.92rem;opacity:.95}
+  @keyframes pop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+  @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+
+  @media(min-width:860px){
+    body{padding-top:48px}
+    .wrap{grid-template-columns:1fr 1.05fr;align-items:start;gap:44px}
+    .left{position:sticky;top:48px;display:grid;gap:28px}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <section class="left">
+    <div class="intro">
+      <h1>Open a new account</h1>
+      <p>Fill in the details and watch your card take shape. Your account is saved as soon as you press the button.</p>
+    </div>
+    <div class="card" id="card" aria-hidden="true">
+      <div class="top"><span>My Bank</span><span class="chip" id="pvType">Savings</span></div>
+      <div class="num" id="pvNo">0000 0000</div>
+      <div class="bottom">
+        <div><small>Account holder</small><div class="nm" id="pvNm">Your name</div></div>
+        <div><small>Opening balance</small><div class="bal" id="pvBal">₹0</div></div>
+      </div>
+    </div>
+  </section>
+
+  <form id="f" novalidate>
+    <div class="field">
+      <label for="accno">Account number</label>
+      <input type="text" id="accno" name="accno" inputmode="numeric" autocomplete="off" placeholder="e.g. 1001" required>
+    </div>
+    <div class="field">
+      <label for="accnm">Account holder name</label>
+      <input type="text" id="accnm" name="accnm" autocomplete="name" placeholder="e.g. Priya Deshmukh" required>
+    </div>
+    <div class="field">
+      <span class="lbl" id="typeLbl">Account type</span>
+      <div class="types" role="radiogroup" aria-labelledby="typeLbl">
+        <input type="radio" name="acctype" id="t1" value="Savings" checked><label for="t1">Savings</label>
+        <input type="radio" name="acctype" id="t2" value="Current"><label for="t2">Current</label>
+        <input type="radio" name="acctype" id="t3" value="Fixed Deposit"><label for="t3">Fixed Deposit</label>
+        <input type="radio" name="acctype" id="t4" value="Salary"><label for="t4">Salary</label>
+      </div>
+    </div>
+    <div class="field">
+      <label for="balance">Opening balance (₹)</label>
+      <input type="number" id="balance" name="balance" inputmode="decimal" min="0" step="0.01" placeholder="e.g. 5000" required>
+      <div class="hint">Enter 0 if you are opening with no deposit.</div>
+    </div>
+
+    <button type="submit" id="btn">Create account</button>
+    <div class="result" id="res" role="status" aria-live="polite">
+      <div class="ico" id="ico"></div>
+      <div><b id="rt"></b><span id="rm"></span></div>
+    </div>
+  </form>
+</main>
+
+<script>
+  const API_URL = "http://127.0.0.1:5000/account/new";
+  const SEND_AS_JSON = true;   // set to false if your Flask code reads request.form
+
+  const $ = id => document.getElementById(id);
+  const f = $("f"), btn = $("btn"), res = $("res");
+  const themes = {
+    "Savings":["#6c4cf5","#ff6b57"], "Current":["#2bb3f3","#6c4cf5"],
+    "Fixed Deposit":["#ffb100","#ff5d73"], "Salary":["#12b886","#2bb3f3"]
+  };
+  const inr = n => "₹" + new Intl.NumberFormat("en-IN").format(n || 0);
+
+  function preview(){
+    const t = f.acctype.value, [a,b] = themes[t];
+    document.documentElement.style.setProperty("--c1", a);
+    document.documentElement.style.setProperty("--c2", b);
+    $("pvType").textContent = t;
+    $("pvNo").textContent = f.accno.value.trim() || "0000 0000";
+    $("pvNm").textContent = f.accnm.value.trim() || "Your name";
+    $("pvBal").textContent = inr(parseFloat(f.balance.value));
+  }
+  f.addEventListener("input", preview);
+  preview();
+
+  function show(ok, title, msg){
+    res.className = "result show " + (ok ? "ok" : "fail");
+    $("ico").textContent = ok ? "✓" : "!";
+    $("rt").textContent = title;
+    $("rm").textContent = msg;
+    res.scrollIntoView({behavior:"smooth", block:"nearest"});
+  }
+
+  f.addEventListener("submit", async e => {
+    e.preventDefault();
+    res.className = "result";
+    const accno = f.accno.value.trim(), accnm = f.accnm.value.trim(),
+          acctype = f.acctype.value, balance = f.balance.value.trim();
+
+    if(!accno || !accnm || balance === "" || isNaN(balance) || Number(balance) < 0){
+      return show(false, "Check your details", "Enter an account number, a name, and a balance of 0 or more.");
+    }
+
+    const payload = {accno, accnm, acctype, balance};
+    const opts = {method:"POST"};
+    if(SEND_AS_JSON){
+      opts.headers = {"Content-Type":"application/json"};
+      opts.body = JSON.stringify(payload);
+    } else {
+      opts.body = new URLSearchParams(payload);
+    }
+
+    btn.disabled = true; btn.textContent = "Creating account…";
+    try{
+      const r = await fetch(API_URL, opts);
+      const data = await r.json();
+      if(String(data.status).toLowerCase() === "success"){
+        show(true, "Account created", `Account ${accno} for ${accnm} was saved successfully.`);
+        f.reset(); preview();
+      } else {
+        show(false, "Account not created", "The server could not save this account. The account number may already exist.");
+      }
+    }catch(err){
+      show(false, "Cannot reach the server",
+        "Make sure your Flask app is running at 127.0.0.1:5000 and that CORS is enabled.");
+    }finally{
+      btn.disabled = false; btn.textContent = "Create account";
+    }
+  });
+</script>
+</body>
+</html>
